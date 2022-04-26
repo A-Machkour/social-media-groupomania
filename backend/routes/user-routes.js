@@ -4,8 +4,8 @@ const router = express.Router();
 
 const userCtrl = require('../controllers/user-controller');
 
-
-router.post('/register',  userCtrl.signUp);
+router.get('/:id', userCtrl.getUserInfo);
+router.put('/:id', userCtrl.updateOneUser);
 
 
 

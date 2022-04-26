@@ -8,7 +8,10 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
 // ROUTES
+const authRoutes = require('./routes/auth-routes');
 const userRoutes = require('./routes/user-routes');
+
+app.use('/api/users', authRoutes);
 app.use('/api/users', userRoutes);
 
 

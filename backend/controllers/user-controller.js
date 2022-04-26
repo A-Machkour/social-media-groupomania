@@ -1,35 +1,56 @@
 const database = require('../config/database');
-// var mysql = require('mysql');
-// var pool  = mysql.createPool({
-//   connectionLimit : 10,
-//   host            : 'localhost',
-//   user            : 'root',
-//   password        : '21593612mega.'
-// });
 
-// pool.getConnection(function(err, database) {
-//   database.query( 'SELECT * FROM users', function(err, rows) {
+exports.getUserInfo = (req, res) => {
+    const id = req.params.id;
+    database.query('SELECT * FROM users WHERE id = ?', [id], (err, result) => {
+        if (err) {
+            res.status(404).send(err);
+        }
+        delete result[0].password;
+        res.status(200).send(result);
+    });
+}
 
-//       console.log(pool._freeConnections.indexOf(database)); // -1
+// exports.updateOneUser = (req, res) => {
+//     if (req.file) {
+//       const {id: user_id} = req.params
+//       let {destination, filename} = req.file
+//       destination = destination + filename
+  
+//       const sqlInsertImage = `INSERT INTO images (post_id, user_id, image_url) VALUES (NULL, ${user_id}, "${destination}");`;
+//       db.query(sqlInsertImage, (err, result) => {
+//         if (err) {
+//           res.status(404).json({ err });
+//           throw err;
+//         }
+//       });
+//     }
+  
+//     const { user_firstname, user_lastname } = req.body;
+//     const { id: userId } = req.params;
+//     const sqlUpdateUser = `UPDATE users SET user_firstname = "${user_firstname}", user_lastname = "${user_lastname}" WHERE users.user_id = ${userId};`;
+//     db.query(sqlUpdateUser, (err, result) => {
+//       if (err) {
+//         res.status(404).json({ err });
+//         throw err;
+//       }
+//       if (result) {
+//         res.status(200).json(result);
+//       }
+//     });
+//   };
 
-//       database.release();
-
-//       console.log(pool._freeConnections.indexOf(database)); // 0
-
-//    });
-// });
-
-exports.signUp=(req, res)=> {
-
-  const{ username, password, email } = req.body;
-  database.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
-  [username, password, email],
-  (err, result)=> {
-  if (err) {
-    res.status(500).send(err);
-  } else {
-    res.status(201).send(result);
-  }
-  });
-}   // end of signUp()
-
+exports.updateOneUser = (req, res) => {
+    const { firstname, lastname } = req.body;
+    const { id: userId } = req.params;
+    database.query('UPDATE users SET firstname = ?, lastname = ? WHERE users.id = ?',
+    [firstname, lastname, userId],
+    (err, result) => {
+        if (err) {
+            res.status(404).send(err);
+        }
+        if (result) {
+            res.status(200).send(result);
+        }
+    });
+}
