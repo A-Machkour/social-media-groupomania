@@ -41,16 +41,44 @@ exports.getUserInfo = (req, res) => {
 //   };
 
 exports.updateOneUser = (req, res) => {
-    const { firstname, lastname } = req.body;
+    const { firstname, lastname, bio } = req.body;
     const { id: userId } = req.params;
-    database.query('UPDATE users SET firstname = ?, lastname = ? WHERE users.id = ?',
-    [firstname, lastname, userId],
+    database.query('UPDATE users SET firstname = ?, lastname = ?, bio = ? WHERE users.id = ?',
+    [firstname, lastname, bio, userId],
     (err, result) => {
         if (err) {
             res.status(404).send(err);
         }
         if (result) {
+            res.status(200).json({message: 'User updated successfully'});
+        }
+    });
+}
+
+exports.deleteOneUser = (req, res) => {
+    const { id: userId } = req.params;
+    database.query('DELETE FROM users WHERE id = ?', [userId], (err, result) => {
+        if (err) {
+            res.status(404).send(err);
+        }
+        if (result) {
             res.status(200).send(result);
+        }
+    });
+}
+
+// il faut faire les relations pour l'ajout des followers
+exports.followUser = (req, res) => {
+    const { id: userId } = req.params;
+    const  followerId = req.body.followerId;
+    database.query('UPDATE users SET followers = ? WHERE users.id = ?',
+    [followerId, userId],
+    (err, result) => {
+        if (err) {
+            res.status(404).send(err);
+        }
+        if (result) {
+            res.status(200).json({message: 'User followed successfully'});
         }
     });
 }

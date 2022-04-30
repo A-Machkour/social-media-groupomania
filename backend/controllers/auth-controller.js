@@ -66,6 +66,7 @@ exports.login=(req, res)=> {
         );
         delete result[0].password;
 
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 });
         // send the token
         res.status(200).json({
           message: "Connexion réussie",
@@ -79,4 +80,10 @@ exports.login=(req, res)=> {
       }
     }
   });
+}
+
+exports.logout = (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: "Déconnexion réussie" });
+
 }
