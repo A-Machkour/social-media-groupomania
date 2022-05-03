@@ -22,13 +22,23 @@ exports.getOnePost = (req, res) => {
 
 // faire les images plus tard grace a multer
 exports.createOnePost = (req, res) => {
+    
     const { content, user_id } = req.body;
+    const {file} = req;
     database.query('INSERT INTO posts (content, user_id) VALUES (?, ?)',
     [content, user_id],
     (err, result) => {
         if (err) {
             res.status(404).send(err);
         }
+        if(file){
+            database.query('UPDATE posts SET post_file = ? WHERE post_id = ?', [file, result.insertId], (err, result) => {
+                if (err) {
+                    res.status(404).send(err);
+                }
+                res.status(200).send(result);
+            });
+        }        
         res.status(200).send(result);
     });
 }

@@ -29,14 +29,14 @@ exports.signUp=(req, res)=> {
   database.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
   [username, hashedPassword, email],
   (err, result)=> {
-  if (err) {
-    res.status(500).send(err);
-  }
   if (!result) {
     res.status(200).json({ message: "Email déjà enregistré" });
   }
+  if (err) {
+    res.status(500).send(err);
+  }
    else {
-    res.status(201).send(result);
+    res.status(201).json({ message: "Inscription réussie" });
   }
   });
 }   // end of signUp()
