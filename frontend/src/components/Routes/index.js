@@ -8,7 +8,6 @@ import {
 import Home from "../../pages/Home";
 import Profile from "../../pages/Profile";
 import Authentication from "../../pages/Authentication";
-// import Navbar from "../Navbar";
 
 const index = () => {
   return (

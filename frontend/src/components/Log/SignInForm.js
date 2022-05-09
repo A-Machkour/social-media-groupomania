@@ -25,27 +25,6 @@ export default function SignInForm(props) {
   });
 
   const submitForm = data => {
-    // fetch('http://localhost:5000/api/users/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         email: data.email,
-    //         password: data.password,
-    //     })
-    // }).then(response => response.json())
-    // .then(
-    //     (json) => {
-    //         console.log(json)
-    //         if(json.message === "Email inconnu" || json.message === "Mot de passe incorrect"){
-    //             props.setMessageError(json.message)
-    //         }else{
-    //             props.setMessageError("")
-    //         }
-    //         props.setMessageSuccess("")
-    //     }
-    // )
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}api/users/login`,

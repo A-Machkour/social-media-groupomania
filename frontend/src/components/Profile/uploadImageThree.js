@@ -39,16 +39,6 @@ const UploadImgThree = () => {
 
   return (
     <form action="" onSubmit={handlePicture} className="upload-pic">
-      {/* <img src={userData[0].images}></img>
-      <label htmlFor="file">Changer d'image</label>
-      <input
-        type="file"
-        id="file"
-        name="profil_picture"
-        accept=".jpg, .jpeg, .png"
-        onChange={e => setFile(e.target.files[0])}
-      />
-      <br /> */}
       <Stack direction="row">
         <Grid container spacing={3}>
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>

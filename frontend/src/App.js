@@ -1,5 +1,3 @@
-// import logo from './logo.svg';
-import "./App.css";
 import { UidContext } from "./components/AppContext";
 import Routes from "./components/Routes";
 import axios from "axios";

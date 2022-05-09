@@ -8,6 +8,8 @@ import Comment from "./commentText";
 export default function CommentsList(props) {
   const [allComments, setAllComments] = useState([]);
 
+  console.log("allComments", allComments);
+
   useEffect(() => {
     async function getComments() {
       const response = await axios.get(

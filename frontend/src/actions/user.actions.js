@@ -1,9 +1,9 @@
 import axios from "axios";
-
 // axios config
 axios.defaults.baseURL = "http://localhost:5000/";
 axios.defaults.headers.post["Content-Type"] = "application/json";
-// axios.defaults.timeout = 60000;
+axios.defaults.headers.delete["Content-Type"] = "application/json";
+axios.defaults.timeout = 60000;
 axios.defaults.withCredentials = true;
 
 const setRequestConfig = queryParams => {
@@ -87,6 +87,7 @@ export const deleteUser = uid => {
       .then(res => {
         dispatch({
           type: DELETE_USER,
+          payload: res.data,
         });
       })
       .catch(err => {

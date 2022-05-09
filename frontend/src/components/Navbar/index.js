@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -22,10 +16,9 @@ import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Zoom from "@mui/material/Zoom";
-import AddIcon from "@mui/icons-material/Add";
 import PropTypes from "prop-types";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import navLogo from "../iconResize.png";
+import navLogo from "./iconResize.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UidContext } from "../AppContext";
@@ -53,9 +46,6 @@ const Input = styled("input")({
 
 function ScrollTop(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
@@ -90,10 +80,7 @@ function ScrollTop(props) {
 
 ScrollTop.propTypes = {
   children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
+
   window: PropTypes.func,
 };
 
@@ -194,10 +181,9 @@ const Navbar = props => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   const handleLogout = e => {
     e.preventDefault();
-    console.log(userData[0].id, "id");
-    // dispatch(deleteUser(userData[0].id));
     deleteCookie("jwt");
     window.location.href = "/";
   };
@@ -273,26 +259,6 @@ const Navbar = props => {
               ))}
             </Box>
 
-            {/* <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<AddIcon />}
-              sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
-              onClick={handleClickOpenNewPost}
-            >
-              Créer un post
-            </Button>
-
-            <IconButton
-              color="secondary"
-              aria-label="add post"
-              component="span"
-              sx={{ mr: 4, display: { xs: "flex", md: "none" } }}
-              onClick={handleClickOpenNewPost}
-            >
-              <AddIcon />
-            </IconButton> */}
-
             <CreatePost />
 
             <Box sx={{ flexGrow: 0 }}>
@@ -338,94 +304,8 @@ const Navbar = props => {
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
-      {/* <Dialog open={openNewPost} onClose={handleCloseNewPost}>
-        <DialogTitle>Créer un post</DialogTitle>
-        <Box component="form" onSubmit={handleSubmitPost} noValidate>
-          <DialogContent>
-            <label htmlFor="post_image">
-              <Input
-                accept="image/*"
-                id="post_image"
-                multiple
-                type="file"
-                name="post_image"
-                onChange={e => setFile(e.target.files[0])}
-              />
-              <Button variant="contained" component="span" color="secondary">
-                Upload
-              </Button>
-            </label>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="content"
-              name="content"
-              label="Contenu"
-              type="text"
-              fullWidth
-              variant="standard"
-              color="secondary"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseNewPost} color="secondary">
-              Annuler
-            </Button>
-            <Button type="submit" color="secondary">
-              Créer
-            </Button>
-          </DialogActions>
-        </Box>
-      </Dialog> */}
     </ThemeProvider>
   );
 };
-// export default Navbar;
-// import React, { useContext } from "react";
-// // import { useSelector } from "react-redux";
-// import { NavLink } from "react-router-dom";
-// import { UidContext } from "../AppContext";
-// // import Logout from "../Log/logout";
-
-// const Navbar = () => {
-//   const uid = useContext(UidContext);
-//   // const userData = useSelector(state => state.userReducer);
-
-//   return (
-//     <nav>
-//       <div className="nav-container">
-//         <div className="logo">
-//           <NavLink exact to="/">
-//             <div className="logo">
-//               <img src={navLogo} alt="icon" />
-//               <h3>Raccoont</h3>
-//             </div>
-//           </NavLink>
-//         </div>
-//         {uid ? (
-//           <ul>
-//             <li></li>
-//             <li className="welcome">
-//               <NavLink exact to="/profil">
-//                 <h5>Bienvenue </h5>
-//                 {/* <h5>Bienvenue {userData.pseudo}</h5> */}
-//               </NavLink>
-//             </li>
-//             {/* <Logout /> */}
-//           </ul>
-//         ) : (
-//           <ul>
-//             <li></li>
-//             <li>
-//               <NavLink exact to="/profil">
-//                 <img src="./img/icons/login.svg" alt="login" />
-//               </NavLink>
-//             </li>
-//           </ul>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// };
 
 export default Navbar;

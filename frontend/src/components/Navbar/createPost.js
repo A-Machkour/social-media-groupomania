@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-// import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
+
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import { useSelector } from "react-redux";
+
 import axios from "axios";
 import { UidContext } from "../AppContext";
 import AddIcon from "@mui/icons-material/Add";
@@ -53,6 +47,7 @@ const CreatePost = props => {
     }).then(res => {
       handleCloseNewPost();
     });
+    window.location.reload();
   };
 
   return (

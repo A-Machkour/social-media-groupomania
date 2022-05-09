@@ -17,18 +17,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function ProfilInformations() {
   const [open, setOpen] = React.useState(false);
   const userData = useSelector(state => state.userReducer);
-  // const dispatch = useDispatch();
 
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   firstname: data.get("firstname"),
-    //   lastname: data.get("lastname"),
-    //   bio: data.get("bio"),
-    // });
-    // dispatch(updateUser(userData[0].id, data));
-    // setOpen(true);
+
     axios({
       method: "put",
       url: `${process.env.REACT_APP_API_URL}api/users/${userData[0].id}`,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +9,10 @@ import { red } from "@mui/material/colors";
 import axios from "axios";
 
 export default function CommentInput(props) {
+  const [dataUid, setDataUid] = useState({});
   const [commentMessage, setCommentMessage] = useState("");
   const uid = useContext(UidContext);
+
   const handleSubmit = async event => {
     const data = {
       user_id: uid,
@@ -26,9 +28,20 @@ export default function CommentInput(props) {
 
     document.location.reload();
   };
+
   const inputHandle = e => {
     setCommentMessage(e.target.value);
   };
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}api/users/${uid}`,
+      withCredentials: true,
+    }).then(res => {
+      setDataUid(res.data[0]);
+    });
+  }, []);
 
   return (
     <Box
@@ -38,9 +51,9 @@ export default function CommentInput(props) {
       sx={{ display: "flex", alignItems: "flex-end", px: 2, pb: 2 }}
     >
       <Avatar
-        alt={props.dataUser.username}
+        alt={dataUid.username}
         className="userPic"
-        src={props.dataUser.images}
+        src={dataUid.images}
         sx={{
           width: 25,
           height: 25,

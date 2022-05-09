@@ -2,7 +2,7 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-
+import { useDispatch } from "react-redux";
 import UploadImgThree from "./uploadImageThree";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -11,12 +11,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector } from "react-redux";
-//import { deleteUser } from "../../actions/user.actions";
+import { deleteUser } from "../../actions/user.actions";
+import { UidContext } from "../AppContext";
+import axios from "axios";
 
 export default function ProfilPhoto() {
-  const userData = useSelector(state => state.userReducer);
+  const uid = React.useContext(UidContext);
   const [open, setOpen] = React.useState(false);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const userData = useSelector(state => state.userReducer);
 
   function setCookie(
     key,
@@ -60,14 +63,21 @@ export default function ProfilPhoto() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleUserDelete = e => {
-    e.preventDefault();
-    console.log(userData[0].id, "id");
-    // dispatch(deleteUser(userData[0].id));
+
+  const handleUserDelete = async () => {
+    // axios({
+    //   method: "delete",
+    //   url: `${process.env.REACT_APP_API_URL}api/users/${userData[0].id}`,
+    //   withCredentials: true,
+    // }).then(res => {
+    //   console.log(res);
+    // });
+    // console.log(uid, "delete");
+    //await dispatch(deleteUser(userData[0].id));
     deleteCookie("jwt");
     window.location.href = "/";
   };
-  console.log(userData[0].images);
+  console.log(uid, "delete");
 
   return (
     <Grid>
@@ -75,8 +85,6 @@ export default function ProfilPhoto() {
         Photo de profil
       </Typography>
 
-      {/* <UploadImg /> */}
-      {/* <UploadImgTwo /> */}
       <UploadImgThree />
       <Typography variant="h6" className="cardProfilTitle" sx={{ pt: 3 }}>
         Compte
@@ -95,7 +103,7 @@ export default function ProfilPhoto() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Etes-vous sur de supprimer votre compte ?
+            Etes-vous sur de vouloir supprimer votre compte ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

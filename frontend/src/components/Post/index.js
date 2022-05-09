@@ -133,7 +133,7 @@ export default function PostCard(props) {
           />
         </CardActions>
         <CommentsList post={props.post} expanded={expanded} />
-        <CommentInput post={props.post} dataUser={dataUser} />
+        <CommentInput post={props.post} />
       </Card>
       <Dialog
         open={open}
