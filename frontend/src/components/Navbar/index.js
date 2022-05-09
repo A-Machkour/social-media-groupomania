@@ -298,7 +298,11 @@ const Navbar = props => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Paramètres">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={dataUser.username} src={dataUser.images} />
+                  <Avatar
+                    alt={dataUser.username}
+                    src={dataUser.images}
+                    className="navAvatar"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

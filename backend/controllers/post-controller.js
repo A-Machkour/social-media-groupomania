@@ -34,108 +34,10 @@ exports.getOneImage = (req, res, next) => {
       res.status(404).json({ err });
       throw err;
     }
-    // if (result[0]) {
-    //   result[0].post_file =
-    //     req.protocol +
-    //     "://" +
-    //     req.get("host") +
-    //     "/images/posts/" +
-    //     result[0].post_file;
-    // }
     res.status(200).send(result);
   });
 };
 
-// faire les images plus tard grace a multer
-// exports.createOnePost = (req, res) => {
-//   const { content, user_id } = req.body;
-//   const { file } = req;
-//   database.query(
-//     "INSERT INTO posts (content, user_id) VALUES (?, ?)",
-//     [content, user_id],
-//     (err, result) => {
-//       if (err) {
-//         res.status(404).send(err);
-//       }
-//       if (file) {
-//         database.query(
-//           "UPDATE posts SET post_file = ? WHERE post_id = ?",
-//           [file, result.insertId],
-//           (err, result) => {
-//             if (err) {
-//               res.status(404).send(err);
-//             }
-//             res.status(200).send(result);
-//           }
-//         );
-//       }
-//       res.status(200).send(result);
-//     }
-//   );
-// };
-// exports.createOnePost = (req, res, next) => {
-//   let { body, file } = req;
-//   const userId = req.params.id;
-//   if (!file) {
-//     delete req.body.post_image;
-//     body = {
-//       ...body,
-//     };
-//     const sqlInsert = "INSERT INTO posts SET ?";
-//     database.query(sqlInsert, body, (err, result) => {
-//       if (err) {
-//         res.status(404).json({ err });
-//       }
-//       res.status(200).json(result);
-//     });
-//   } else {
-//     const sqlInsert = "INSERT INTO posts SET ?";
-//     database.query(sqlInsert, body, (err, result) => {
-//       if (err) {
-//         res.status(404).json({ err });
-//       }
-//       const sqlUpdate = `UPDATE posts SET post_file = ? WHERE post_id = ${result.post_id}`;
-//       database.query(sqlUpdate, [file.filename], (err, result) => {
-//         if (err) {
-//           res.status(404).json({ err });
-//         }
-//         res.status(200).json(result);
-//       });
-//     });
-//   }
-// };
-
-// post_id will be equal to the post inserted, and will be reused to link the image at the correct post in the below query
-// const post_id = result.insertId;
-// if (file) {
-//   const sqlInsertImage = `INSERT INTO images (image_url, post_id) VALUES ("${file.filename}", ${post_id})`;
-//   database.query(sqlInsertImage, (err, result) => {
-//     if (err) {
-//       res.status(404).json({ err });
-//       throw err;
-//     }
-//     res.status(200).json(result);
-//   });
-// } else {
-//   res.status(200).json(result);
-// }
-//   const fileName = req.file.filename;
-//   const filePath = `./images/uploads/posts/${fileName}`;
-
-//   database.query(
-//     `INSERT INTO posts (post_file, post_id)  VALUES( "${filePath}", "${post_id}")`,
-//     (err, result) => {
-//       if (err) {
-//         res.status(404).json(err);
-//       }
-//       if (result) {
-//         res.status(200).json({
-//           message: "image uploaded",
-//         });
-//       }
-//     }
-//   );
-// });
 exports.createPost = (req, res, next) => {
   let { body, file } = req;
   console.log(body);

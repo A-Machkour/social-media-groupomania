@@ -1,15 +1,31 @@
 import React from "react";
+import axios from "axios";
 import Collapse from "@mui/material/Collapse";
-import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
+import { useState, useEffect } from "react";
+import Comment from "./commentText";
 
 export default function CommentsList(props) {
+  const [allComments, setAllComments] = useState([]);
+
+  useEffect(() => {
+    async function getComments() {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}api/comments/${props.post.post_id}/getallcomments`
+      );
+      const data = response.data;
+      if (Array.isArray(data)) {
+        setAllComments(prevState => [...prevState, ...data]);
+      } else throw new Error("Oops, didn't get an array.");
+    }
+    getComments();
+  }, [props.post.post_id]);
   return (
     <Collapse in={props.expanded} timeout="auto" unmountOnExit>
-      <CardContent>
-        <Typography paragraph>Commentaire 1</Typography>
-        <Typography paragraph>Commentaire 2</Typography>
-        <Typography paragraph>Commentaire 3</Typography>
+      <CardContent className="comments">
+        {allComments.map(comment => (
+          <Comment comment={comment} key={comment.comment_id} />
+        ))}
       </CardContent>
     </Collapse>
   );

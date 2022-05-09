@@ -3,9 +3,7 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-// import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import Button from "@mui/material/Button";
@@ -13,11 +11,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useTheme } from "@mui/material/styles";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { dateParser } from "../Utils";
-// import { useSelector } from "react-redux";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import LikeButton from "./like";
@@ -33,8 +27,6 @@ export default function PostCard(props) {
   const [dataUser, setDataUser] = useState({});
   const [dataUid, setDataUid] = useState({});
   const [imagePost, setImagePost] = useState("");
-  // const postData = useSelector(state => state.postReducer);
-  // const userData = useSelector(state => state.userReducer);
   const [open, setOpen] = React.useState(false);
   const uid = useContext(UidContext);
 
@@ -60,7 +52,7 @@ export default function PostCard(props) {
     }).then(res => {
       setDataUid(res.data[0]);
     });
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     axios({
@@ -70,7 +62,7 @@ export default function PostCard(props) {
     }).then(res => {
       setDataUser(res.data[0]);
     });
-  }, []);
+  }, [props.post.user_id]);
 
   useEffect(() => {
     axios({
@@ -82,7 +74,7 @@ export default function PostCard(props) {
         setImagePost(res.data[0].image_url);
       }
     });
-  }, [imagePost]);
+  }, [props.post.post_id]);
 
   return (
     <Box
@@ -105,7 +97,7 @@ export default function PostCard(props) {
             />
           }
           action={
-            uid == props.post.user_id || dataUid.admin == 1 ? (
+            uid === props.post.user_id || dataUid.admin === 1 ? (
               <DeletePost post={props.post} />
             ) : (
               ""
@@ -140,8 +132,8 @@ export default function PostCard(props) {
             handleExpandClick={handleExpandClick}
           />
         </CardActions>
-        <CommentsList expanded={expanded} />
-        <CommentInput />
+        <CommentsList post={props.post} expanded={expanded} />
+        <CommentInput post={props.post} dataUser={dataUser} />
       </Card>
       <Dialog
         open={open}

@@ -2,25 +2,6 @@ const database = require("../config/database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "./config/.env" });
-// var mysql = require('mysql');
-// var pool  = mysql.createPool({
-//   connectionLimit : 10,
-//   host            : 'localhost',
-//   user            : 'root',
-//   password        : '21593612mega.'
-// });
-
-// pool.getConnection(function(err, database) {
-//   database.query( 'SELECT * FROM users', function(err, rows) {
-
-//       console.log(pool._freeConnections.indexOf(database)); // -1
-
-//       database.release();
-
-//       console.log(pool._freeConnections.indexOf(database)); // 0
-
-//    });
-// });
 
 exports.signUp = (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);

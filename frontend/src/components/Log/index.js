@@ -70,7 +70,7 @@ export default function Log(props) {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://source.unsplash.com/random/?computer,working,cafe,nature)",
+              "url(https://source.unsplash.com/random/?computer,working,cafe)",
             backgroundRepeat: "no-repeat",
             backgroundColor: t =>
               t.palette.mode === "light"

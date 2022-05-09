@@ -7,15 +7,29 @@ const Home = () => {
   const uid = useContext(UidContext);
 
   return (
-    <div className="home-page">
-      {uid ? (
-        <>
-          <Thread />
-        </>
-      ) : (
-        <Log signin={true} signup={false} />
-      )}
-    </div>
+    <>
+      <div className="loaderSize">
+        <div className="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div className="home-page">
+        {uid ? (
+          <>
+            <Thread />
+          </>
+        ) : (
+          <Log signin={true} signup={false} />
+        )}
+      </div>
+    </>
   );
 };
 
