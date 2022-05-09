@@ -5,9 +5,15 @@ const path = require("path");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: "./config/.env" });
+const database = require("./config/database");
 const cors = require("cors");
 const { requireAuth } = require("./middleware/auth-middleware");
 
+// const corsOptions = {
+//   origin: ["http://localhost:5000", "http://localhost:3000"],
+//   optionsSuccessStatus: 200, // some legacy browsers     (IE11, various SmartTVs) choke on 204
+// };
+// app.use(cors(corsOptions));
 app.use((req, res, next) => {
   res.set({
     "Access-Control-Allow-Origin": "http://localhost:3000",
