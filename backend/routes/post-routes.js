@@ -17,9 +17,9 @@ router.delete("/:id", postCtrl.deleteOnePost);
 router.get("/image/:id", postCtrl.getOneImage);
 
 // // POST LIKES ROUTES
-// router.patch("/:id/like", auth, postCtrl.likePost);
-router.post("/like", auth, postCtrl.likePostTwo);
-// router.post("/:id/like", postCtrl.countLikes);
-router.post("/:id/postLikedByUser", auth, postCtrl.postLikedByUser);
+router.patch("/:id/like", auth, postCtrl.likePost);
+// router.post("/like", auth, postCtrl.likePostTwo);
+router.post("/:id/like", postCtrl.countLikes);
+router.post("/:id/postLikedByUser", postCtrl.postLikedByUser);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const { auth } = require("../middleware/auth-middleware");
 
 router.get("/", auth, commentCtrl.getAllComments);
 router.get("/:id", auth, commentCtrl.getOneComment);
-router.post("/", auth, commentCtrl.createOneComment);
+router.post("/", commentCtrl.createOneComment);
 router.delete("/:id", auth, commentCtrl.deleteOneComment);
 
 module.exports = router;

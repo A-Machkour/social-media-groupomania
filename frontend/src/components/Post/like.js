@@ -9,10 +9,13 @@ import { useSelector } from "react-redux";
 // import { PostAddSharp } from "@material-ui/icons";
 
 export default function LikeButton(props) {
-  const [liked, setLiked] = useState(false);
+  const [postLiked, setPostLiked] = useState(false);
+  const [nbOfLikes, setNbOfLikes] = useState(0);
   const uid = useContext(UidContext);
   const [loadPost, setLoadPost] = useState(true);
   const posts = useSelector(state => state.postReducer);
+  // console.log(posts, "posts des likes");
+  // console.log(props.post, "props.post");
 
   //   useEffect(() => {
 
@@ -27,22 +30,68 @@ export default function LikeButton(props) {
   //       console.log(res);
   //     });
   // };
+
+  // Ajoute a la table like lors d'un clic sur le bouton like
   const likeHandle = async () => {
     const data = {
       userId: uid,
-      postId: posts[0].postId,
+      postId: props.post.post_id,
     };
-
-    console.log(data.userId, data.postId);
-    await axios.patch(`/api/posts/${uid}/like`, data);
-    document.location.reload();
+    await axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/posts/${uid}/like`,
+      withCredentials: true,
+      data: data,
+    }).then(res => {
+      console.log(res);
+    });
+    document.location.reload(true);
   };
+  useEffect(() => {
+    const getLikesNb = async () => {
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}api/posts/${props.post.post_id}/like`,
+        withCredentials: true,
+      });
+      // POST(ENDPOINTS.LIKE_UNLINKE, { postId });
+
+      const nbOfLikes = response.data[0].total;
+      setNbOfLikes(nbOfLikes);
+    };
+    console.log(nbOfLikes, "nbOfLikes");
+    getLikesNb();
+  });
+  useEffect(() => {
+    const getColorLikeButton = async () => {
+      const data = {
+        userId: uid,
+        postId: props.post.post_id,
+      };
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}api/posts/${props.post.post_id}/postLikedByUser`,
+        withCredentials: true,
+        data: data,
+      });
+      if (response.data[0]) {
+        setPostLiked(true);
+      } else {
+        setPostLiked(false);
+      }
+    };
+    getColorLikeButton();
+  }, [uid, props.post.post_id]);
 
   return (
     <>
-      <button onClick={() => likeHandle()}>BUTTON LIKE + NUMBER</button>
-      <IconButton aria-label="add to favorites">
-        <ThumbUpIcon className="likeButton" />
+      {/* <button onClick={() => likeHandle()}>BUTTON LIKE + NUMBER</button> */}
+      <IconButton aria-label="add to favorites" onClick={() => likeHandle()}>
+        <p className="like-number">{nbOfLikes}</p>
+        <ThumbUpIcon
+          style={postLiked ? { color: "#ff2a00" } : { color: "#a7a7a7b9" }}
+          className="like-button"
+        />
       </IconButton>
     </>
   );

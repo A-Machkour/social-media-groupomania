@@ -134,7 +134,7 @@ export default function PostCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <LikeButton />
+          <LikeButton post={props.post} />
           <CommentsButton
             expanded={expanded}
             handleExpandClick={handleExpandClick}
