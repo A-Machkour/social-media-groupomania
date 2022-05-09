@@ -39,7 +39,6 @@ export default function LikeButton(props) {
       const nbOfLikes = response.data[0].total;
       setNbOfLikes(nbOfLikes);
     };
-    console.log(nbOfLikes, "nbOfLikes");
     getLikesNb();
   });
   useEffect(() => {

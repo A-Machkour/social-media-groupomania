@@ -8,15 +8,16 @@ const upload = require("../middleware/multer-config");
 
 router.get("/:id", auth, userCtrl.getUserInfo);
 router.put("/:id", auth, userCtrl.updateOneUser);
-router.delete("/:id", userCtrl.deleteOneUser);
+router.delete("/:id", auth, userCtrl.deleteOneUser);
 // router.patch("/follow/:id", auth, userCtrl.followUser);
 
 //upload image
 router.post(
   "/:id/upload",
+  auth,
 
   upload.single("profil_picture"),
   uploadCtrl.uploadProfile
 );
-router.get("/:id/upload", uploadCtrl.getProfilPicture);
+router.get("/:id/upload", auth, uploadCtrl.getProfilPicture);
 module.exports = router;
