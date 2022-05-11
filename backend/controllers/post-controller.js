@@ -126,27 +126,27 @@ exports.likePost = (req, res) => {
     }
   });
 };
-exports.likePostTwo = (req, res) => {
-  const user_id = req.body.user_id;
-  const post_id = req.body.post_id;
+// exports.likePostTwo = (req, res) => {
+//   const user_id = req.body.user_id;
+//   const post_id = req.body.post_id;
 
-  database.query(
-    "INSERT INTO likes (user_id, post_id) VALUES (?,?)",
-    [user_id, post_id],
-    (err, results) => {
-      if (err) {
-        console.log(err);
-      }
-      database.query(
-        "UPDATE posts SET likes = likes + 1 WHERE id = ?",
-        post_id,
-        (err2, results2) => {
-          res.send(results);
-        }
-      );
-    }
-  );
-};
+//   database.query(
+//     "INSERT INTO likes (user_id, post_id) VALUES (?,?)",
+//     [user_id, post_id],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//       }
+//       database.query(
+//         "UPDATE posts SET likes = likes + 1 WHERE id = ?",
+//         post_id,
+//         (err2, results2) => {
+//           res.send(results);
+//         }
+//       );
+//     }
+//   );
+// };
 
 exports.countLikes = (req, res) => {
   const postId = req.params.id;

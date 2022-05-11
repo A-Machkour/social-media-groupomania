@@ -4,13 +4,14 @@ const router = express.Router();
 const postCtrl = require("../controllers/post-controller");
 const { auth } = require("../middleware/auth-middleware");
 const upload = require("../middleware/multer-config");
+const { isPostOwnerOrAdmin } = require("../middleware/isPostOwnerOrAdmin");
 
 // POST ROUTES CRUD
 router.get("/", auth, postCtrl.getAllPosts);
 router.get("/:id", auth, postCtrl.getOnePost);
 router.post("/:id", auth, upload.single("post_image"), postCtrl.createPost);
 
-router.delete("/:id", auth, postCtrl.deleteOnePost);
+router.delete("/:id", auth, isPostOwnerOrAdmin, postCtrl.deleteOnePost);
 
 // IMAGES
 router.get("/image/:id", auth, postCtrl.getOneImage);

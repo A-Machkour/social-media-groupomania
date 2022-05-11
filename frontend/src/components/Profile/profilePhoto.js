@@ -73,7 +73,7 @@ export default function ProfilPhoto() {
     //   console.log(res);
     // });
     // console.log(uid, "delete");
-    //await dispatch(deleteUser(userData[0].id));
+    await dispatch(deleteUser(userData[0].id));
     deleteCookie("jwt");
     window.location.href = "/";
   };
