@@ -3,14 +3,11 @@ import { IconButton } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import axios from "axios";
 import { UidContext } from "../AppContext";
-import { useSelector } from "react-redux";
 
 export default function LikeButton(props) {
   const [postLiked, setPostLiked] = useState(false);
   const [nbOfLikes, setNbOfLikes] = useState(0);
   const uid = useContext(UidContext);
-  const [loadPost, setLoadPost] = useState(true);
-  const posts = useSelector(state => state.postReducer);
 
   // Ajoute a la table like lors d'un clic sur le bouton like
   const likeHandle = async () => {

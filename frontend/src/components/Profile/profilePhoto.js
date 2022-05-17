@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { useDispatch } from "react-redux";
-import UploadImgThree from "./uploadImageThree";
+import UploadImg from "./uploadImage";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,7 +13,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector } from "react-redux";
 import { deleteUser } from "../../actions/user.actions";
 import { UidContext } from "../AppContext";
-import axios from "axios";
 
 export default function ProfilPhoto() {
   const uid = React.useContext(UidContext);
@@ -65,14 +64,6 @@ export default function ProfilPhoto() {
   };
 
   const handleUserDelete = async () => {
-    // axios({
-    //   method: "delete",
-    //   url: `${process.env.REACT_APP_API_URL}api/users/${userData[0].id}`,
-    //   withCredentials: true,
-    // }).then(res => {
-    //   console.log(res);
-    // });
-    // console.log(uid, "delete");
     await dispatch(deleteUser(userData[0].id));
     deleteCookie("jwt");
     window.location.href = "/";
@@ -85,7 +76,7 @@ export default function ProfilPhoto() {
         Photo de profil
       </Typography>
 
-      <UploadImgThree />
+      <UploadImg />
       <Typography variant="h6" className="cardProfilTitle" sx={{ pt: 3 }}>
         Compte
       </Typography>

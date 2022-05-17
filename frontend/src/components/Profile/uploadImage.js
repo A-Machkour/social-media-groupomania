@@ -21,7 +21,7 @@ const Input = styled("input")({
   cursor: "pointer",
 });
 
-const UploadImgThree = () => {
+const UploadImg = () => {
   const [file, setFile] = useState();
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userReducer);
@@ -74,4 +74,4 @@ const UploadImgThree = () => {
   );
 };
 
-export default UploadImgThree;
+export default UploadImg;

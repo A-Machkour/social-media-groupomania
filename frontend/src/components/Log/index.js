@@ -133,12 +133,7 @@ export default function Log(props) {
                 setSignUp={setSignUp}
               />
             )}
-            {/* <Link href="#" variant="body2" onClick={handleClick} id="login"> 
-                          Connexion
-                        </Link>
-                        <Link href="#" variant="body2" onClick={handleClick} id="register"> 
-                          Inscription
-                        </Link> */}
+
             <Grid container spacing={4}>
               <Grid
                 item
